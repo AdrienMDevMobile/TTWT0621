@@ -2,13 +2,10 @@ package com.example.ttwt0621
 
 import androidx.lifecycle.ViewModel
 import com.example.ttwt0621.apiCall.IListGetter
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-
+/*
 @HiltViewModel
 class MainViewModel @Inject constructor(private val listGetter : IListGetter) : ViewModel(){
 
@@ -22,4 +19,4 @@ class MainViewModel @Inject constructor(private val listGetter : IListGetter) : 
             val toTest = listGetter.getListPreview()
         }
     }
-}
+}*/

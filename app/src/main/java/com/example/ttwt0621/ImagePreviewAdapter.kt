@@ -1,7 +1,7 @@
 package com.example.ttwt0621
 
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
+
 /*
 class ImagePreviewAdapter @Inject constructor(@ApplicationContext private val context: Context, private val list : ArrayList<ImagePreview>){
 
