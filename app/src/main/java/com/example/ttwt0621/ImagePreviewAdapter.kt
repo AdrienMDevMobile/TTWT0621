@@ -4,16 +4,22 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.toolbox.NetworkImageView
 import com.example.ttwt0621.data.ImagePreview
+import com.example.ttwt0621.image.MyImageLoader
 import kotlin.properties.Delegates
 
 
-class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
+class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>, private val myImageLoader: MyImageLoader)
     : RecyclerView.Adapter<ImagePreviewAdapter.ViewHolder>(){
     //private val context: Context,
     private val layoutInflater: LayoutInflater? = null
+
+   // companion object isChecked = ArrayList<Boolean>()
+
 
     override fun  onCreateViewHolder(parent: ViewGroup, viewType : Int) : ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,63 +36,24 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
         val imagePreview = list.get(position)
         holder.textImagePreview.setText(imagePreview.tags)
         holder.currentPosition = position
+        myImageLoader.loadImage(holder.image, imagePreview.previewURL)
     }
 
     class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
 
-        public val textImagePreview : TextView
-        public var currentPosition : Int =-1
+        val textImagePreview : TextView
+        val image : NetworkImageView
+        var currentPosition : Int =-1
+        val checkBox : CheckBox
 
         init{
-            /*
-            itemView.setOnClickListener(new View.OnClickListener(){
-
-                override fun onClick(View v) {
-                    Intent intent = new Intent(context, NoteActivity.class);
-                    intent.putExtra(NoteActivity.NOTE_POSITION, currentPosition);
-                    context.startActivity(intent);
-                }
-            })*/
             textImagePreview = itemView.findViewById(R.id.tvImagePreview);
+            image = itemView.findViewById(R.id.img_preview)
+            checkBox = itemView.findViewById(R.id.cBImagePreview)
+            /*
+            checkBox.setOnCheckedChangeListener{view, checked ->
+
+            }*/
         }
     }
 }
-
-/*
-
-
-public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.ViewHolder>{
-
-    private final Context context;
-    private final List<NoteInfo> notes;
-    private final LayoutInflater layoutInflater;
-
-    public NoteRecyclerAdapter(Context context, List<NoteInfo> notes) {
-        this.context = context;
-        layoutInflater = LayoutInflater.from(context);
-        this.notes = notes;
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.item_note_list, parent, false);
-        return new ViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        NoteInfo note = notes.get(position);
-        holder.textCourse.setText(note.getCourse().getTitle());
-        holder.textTitle.setText(note.getTitle());
-        holder.currentPosition = position;
-    }
-
-    @Override
-    public int getItemCount() {
-        return notes.size();
-    }
-
-
-}
- */

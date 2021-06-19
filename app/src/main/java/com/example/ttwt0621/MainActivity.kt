@@ -1,22 +1,17 @@
 package com.example.ttwt0621
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.Volley
 import com.example.ttwt0621.apiCall.IListGetter
 import com.example.ttwt0621.apiCall.VolleyListGetter
-import com.example.ttwt0621.data.ImagePreview
+import com.example.ttwt0621.image.MyImageLoader
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,17 +28,16 @@ class MainActivity : AppCompatActivity() {
         val viewModel: MainViewModel by viewModels()
 
         //A faire si plus de temps : passer le listGetter dans le ViewModel pour réduire dépendance
-        val listGetter : IListGetter = VolleyListGetter(Volley.newRequestQueue(this), Gson())
+        val requestQueue = Volley.newRequestQueue(this)
+        val listGetter : IListGetter = VolleyListGetter(requestQueue, Gson())
 
         val searchText = findViewById<EditText>(R.id.et_search)
+
+        val myImageLoader = MyImageLoader(requestQueue)
 
         recyclerView = findViewById<RecyclerView>(R.id.rv_preview_list).apply {
             this.setHasFixedSize(true)
         }
-
-        /*
-        val previewImageLayoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = previewImageLayoutManager*/
 
         val searchButton = findViewById<Button>(R.id.btnSearch)
         searchButton.setOnClickListener { view ->
@@ -52,11 +46,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.getListPreview().observe(this, {
-            val viewAdapter = ImagePreviewAdapter(it)
+            val viewAdapter = ImagePreviewAdapter(it, myImageLoader)
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = viewAdapter
         })
-
 
     }
 

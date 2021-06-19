@@ -21,4 +21,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/cBImagePreview"
         app:layout_constraintStart_toEndOf="@+id/cBImagePreview"
         app:layout_constraintTop_toTopOf="@+id/cBImagePreview" />
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/img_preview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvImagePreview"
+        app:layout_constraintTop_toTopOf="@+id/tvImagePreview" />
 </androidx.constraintlayout.widget.ConstraintLayout>
