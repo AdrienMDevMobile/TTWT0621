@@ -38,7 +38,7 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>, private va
         holder.checkBox.isChecked = imagePreview.isChecked
     }
 
-    class ViewHolder(itemView : View, viewHolder:CBClicked): RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView : View, adapter:CBClicked): RecyclerView.ViewHolder(itemView){
 
         val textImagePreview : TextView
         val image : NetworkImageView
@@ -50,7 +50,7 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>, private va
             image = itemView.findViewById(R.id.img_preview)
             checkBox = itemView.findViewById(R.id.cBImagePreview)
             checkBox.setOnCheckedChangeListener{view, checked ->
-                viewHolder.CBClicked(currentPosition, checked)
+                adapter.CBClicked(currentPosition, checked)
             }
         }
 

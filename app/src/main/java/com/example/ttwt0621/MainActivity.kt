@@ -1,6 +1,8 @@
 package com.example.ttwt0621
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.Volley
 import com.example.ttwt0621.apiCall.IListGetter
 import com.example.ttwt0621.apiCall.VolleyListGetter
+import com.example.ttwt0621.data.ImagePreview
 import com.example.ttwt0621.image.MyImageLoader
 import com.google.gson.Gson
 
@@ -50,6 +53,22 @@ class MainActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = viewAdapter
         })
+
+        //Chercher comment bien faire le onclicklistener. Tout ce travail devrait etre fait par la VM. Pas l'activité.
+        findViewById<Button>(R.id.btnGo).setOnClickListener { view ->
+            val intent = Intent(this, ShowPicturesActivity::class.java)
+
+            val toSend = ArrayList<String>()
+            for(a in viewModel.getListPreview().value!!){
+
+                if(a.isChecked)
+                    toSend.add(a.largeImageURL)
+                Log.i("checked", a.isChecked.toString())
+            }
+
+            intent.putStringArrayListExtra(ShowPicturesActivity.LIST_IMAGE_EXTRA, toSend)
+            this.startActivity(intent)
+        }
 
     }
 

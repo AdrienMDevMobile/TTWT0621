@@ -4,5 +4,6 @@ data class ImagePreview (
     val id:Int,
     val tags : String,
     val previewURL : String,
-    var isChecked : Boolean = false
+    var isChecked : Boolean = false,
+    val largeImageURL : String
 )
