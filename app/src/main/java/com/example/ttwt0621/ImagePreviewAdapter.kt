@@ -1,28 +1,57 @@
 package com.example.ttwt0621
 
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.ttwt0621.data.ImagePreview
+import kotlin.properties.Delegates
 
-/*
-class ImagePreviewAdapter @Inject constructor(@ApplicationContext private val context: Context, private val list : ArrayList<ImagePreview>){
 
-    private var _binding: FragmentTimerBinding? = null
+class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
+    : RecyclerView.Adapter<ImagePreviewAdapter.ViewHolder>(){
+    //private val context: Context,
+    private val layoutInflater: LayoutInflater? = null
 
     override fun  onCreateViewHolder(parent: ViewGroup, viewType : Int) : ViewHolder {
-                val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.timer_view_item, parent, false)
-        // set the view's size, margins, paddings and layout parameters
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_image_list, parent, false)
 
         return ViewHolder(view)
     }
 
-   override fun onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        NoteInfo note = list.get(position);
-        holder.textCourse.setText(note.getCourse().getTitle());
-        holder.textTitle.setText(note.getTitle());
-        holder.currentPosition = position;
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val imagePreview = list.get(position)
+        holder.textImagePreview.setText(imagePreview.tags)
+        holder.currentPosition = position
+    }
+
+    class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
+
+        public val textImagePreview : TextView
+        public var currentPosition : Int =-1
+
+        init{
+            /*
+            itemView.setOnClickListener(new View.OnClickListener(){
+
+                override fun onClick(View v) {
+                    Intent intent = new Intent(context, NoteActivity.class);
+                    intent.putExtra(NoteActivity.NOTE_POSITION, currentPosition);
+                    context.startActivity(intent);
+                }
+            })*/
+            textImagePreview = itemView.findViewById(R.id.tvImagePreview);
+        }
     }
 }
-*/
+
 /*
 
 
@@ -58,26 +87,6 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         return notes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public final TextView textTitle;
-        public final TextView textCourse;
-        public int currentPosition;
-
-        public ViewHolder(View itemView){
-            super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, NoteActivity.class);
-                    intent.putExtra(NoteActivity.NOTE_POSITION, currentPosition);
-                    context.startActivity(intent);
-                }
-            });
-            textCourse = (TextView) itemView.findViewById(R.id.tvCourse);
-            textTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-        }
-    }
 }
  */

@@ -6,6 +6,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.ttwt0621.data.ImagePreview
+import com.example.ttwt0621.data.PreviewList
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -15,10 +16,11 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class VolleyListGetter(private val queue: RequestQueue, private val gson: Gson) : IListGetter {
-    override suspend fun getListPreview(): ArrayList<ImagePreview> {
+    override suspend fun getListPreview(textSearch:String): PreviewList {
 
-        val URL :String = URLs.BASE_URL
-        val typeImagePreviewList = object: TypeToken<ArrayList<ImagePreview>>() {}.type
+        val URL :String = URLs.BASE_URL + URLs.SEARCH_FIELD + textSearch
+        //val typeImagePreviewList = object: TypeToken<ArrayList<ImagePreview>>() {}.type
+        val typePreviewList = object:TypeToken<PreviewList>(){}.type
 
         Log.i("url", URL)
 
@@ -29,14 +31,14 @@ class VolleyListGetter(private val queue: RequestQueue, private val gson: Gson) 
                 val success = Response.Listener<JSONObject> { response ->
                     if (continuation.isActive) {
                         Log.i("response", response.toString())
-                        continuation.resume(gson.fromJson(response.toString(), typeImagePreviewList ))
+                        continuation.resume(gson.fromJson(response.toString(), typePreviewList ))
                     }
                 }
 
                 // Error Listner
                 val error = Response.ErrorListener {
                     if (continuation.isActive) {
-                        continuation.resume(ArrayList<ImagePreview>())
+                        continuation.resume(PreviewList(0,0, ArrayList()))
                     }
                 }
 
