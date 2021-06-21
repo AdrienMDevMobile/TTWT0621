@@ -18,8 +18,8 @@ class ShowPicturesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_pictures)
 
-        val requestQueue = Volley.newRequestQueue(this)
-        val myImageLoader = MyImageLoader(requestQueue)
+        //val requestQueue = Volley.newRequestQueue(this)
+        //val myImageLoader = MyImageLoader(requestQueue)
 
         val intent = getIntent()
         val listImages = intent.getStringArrayListExtra(LIST_IMAGE_EXTRA)
@@ -29,7 +29,7 @@ class ShowPicturesActivity : AppCompatActivity() {
         }
 
         if (listImages != null) {
-            val viewAdapter = ImageFullAdapter(listImages, myImageLoader)
+            val viewAdapter = ImageFullAdapter(listImages)
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = viewAdapter
 

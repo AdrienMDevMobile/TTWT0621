@@ -31,12 +31,12 @@ class MainActivity : AppCompatActivity() {
         val viewModel: MainViewModel by viewModels()
 
         //A faire si plus de temps : passer le listGetter dans le ViewModel pour réduire dépendance
-        val requestQueue = Volley.newRequestQueue(this)
-        val listGetter : IListGetter = VolleyListGetter(requestQueue, Gson())
+        //val requestQueue = Volley.newRequestQueue(this)
+        //val listGetter : IListGetter = VolleyListGetter(requestQueue, Gson())
 
         val searchText = findViewById<EditText>(R.id.et_search)
 
-        val myImageLoader = MyImageLoader(requestQueue)
+       // val myImageLoader = MyImageLoader(requestQueue)
 
         recyclerView = findViewById<RecyclerView>(R.id.rv_preview_list).apply {
             this.setHasFixedSize(true)
@@ -45,11 +45,11 @@ class MainActivity : AppCompatActivity() {
         val searchButton = findViewById<Button>(R.id.btnSearch)
         searchButton.setOnClickListener { view ->
             //Utiliser scope autre que GlobalScope
-            viewModel.startSearch(searchText.text.toString(), listGetter)
+            viewModel.startSearch(searchText.text.toString(), MyApplication.instance.listGetter)
         }
 
         viewModel.getListPreview().observe(this, {
-            val viewAdapter = ImagePreviewAdapter(it, myImageLoader)
+            val viewAdapter = ImagePreviewAdapter(it)
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = viewAdapter
         })

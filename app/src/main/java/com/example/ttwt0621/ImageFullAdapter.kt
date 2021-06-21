@@ -11,7 +11,7 @@ import com.android.volley.toolbox.NetworkImageView
 import com.example.ttwt0621.data.ImagePreview
 import com.example.ttwt0621.image.MyImageLoader
 
-class ImageFullAdapter (private val list : ArrayList<String>, private val myImageLoader: MyImageLoader)
+class ImageFullAdapter (private val list : ArrayList<String>)
     : RecyclerView.Adapter<ImageFullAdapter.ViewHolder>()
 {
 
@@ -24,7 +24,8 @@ class ImageFullAdapter (private val list : ArrayList<String>, private val myImag
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageFullURL = list.get(position)
         Log.i("imageURL", imageFullURL)
-        myImageLoader.loadImage(holder.image, imageFullURL)
+        MyApplication.instance.imageLoader.loadImage(holder.image, imageFullURL)
+        //myImageLoader.loadImage(holder.image, imageFullURL)
     }
 
     override fun getItemCount(): Int {

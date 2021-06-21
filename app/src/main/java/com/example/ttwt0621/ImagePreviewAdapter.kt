@@ -13,9 +13,9 @@ import com.example.ttwt0621.image.MyImageLoader
 import kotlin.properties.Delegates
 
 
-class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>, private val myImageLoader: MyImageLoader)
+class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
     : CBClicked, RecyclerView.Adapter<ImagePreviewAdapter.ViewHolder>()
-     {
+     { //private val myImageLoader: MyImageLoader
     //private val context: Context,
     private val layoutInflater: LayoutInflater? = null
 
@@ -34,7 +34,8 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>, private va
         val imagePreview = list.get(position)
         holder.textImagePreview.setText(imagePreview.tags)
         holder.currentPosition = position
-        myImageLoader.loadImage(holder.image, imagePreview.previewURL)
+        MyApplication.instance.imageLoader.loadImage(holder.image, imagePreview.previewURL)
+        //myImageLoader.loadImage(holder.image, imagePreview.previewURL)
         holder.checkBox.isChecked = imagePreview.isChecked
     }
 
@@ -59,9 +60,7 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>, private va
      override fun CBClicked(position: Int, value: Boolean) {
          list.get(position).isChecked = value
      }
-
-
-     }
+}
 interface CBClicked{
     fun CBClicked(position : Int, value:Boolean)
 }
