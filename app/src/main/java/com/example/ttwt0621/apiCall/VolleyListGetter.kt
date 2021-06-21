@@ -1,6 +1,5 @@
 package com.example.ttwt0621.apiCall
 
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -22,15 +21,12 @@ class VolleyListGetter(private val queue: RequestQueue, private val gson: Gson) 
         //val typeImagePreviewList = object: TypeToken<ArrayList<ImagePreview>>() {}.type
         val typePreviewList = object:TypeToken<PreviewList>(){}.type
 
-        Log.i("url", URL)
-
         return suspendCancellableCoroutine  { continuation ->
 
             try {
 
                 val success = Response.Listener<JSONObject> { response ->
                     if (continuation.isActive) {
-                        Log.i("response", response.toString())
                         continuation.resume(gson.fromJson(response.toString(), typePreviewList ))
                     }
                 }

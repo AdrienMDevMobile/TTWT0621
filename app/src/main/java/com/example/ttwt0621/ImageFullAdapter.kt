@@ -1,6 +1,5 @@
 package com.example.ttwt0621
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,6 @@ class ImageFullAdapter (private val list : ArrayList<String>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageFullURL = list.get(position)
-        Log.i("imageURL", imageFullURL)
         MyApplication.instance.imageLoader.loadImage(holder.image, imageFullURL)
         //myImageLoader.loadImage(holder.image, imageFullURL)
     }

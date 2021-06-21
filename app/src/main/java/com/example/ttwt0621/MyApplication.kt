@@ -1,7 +1,6 @@
 package com.example.ttwt0621
 
 import android.app.Application
-import android.util.Log
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.example.ttwt0621.apiCall.IListGetter
@@ -23,7 +22,6 @@ class MyApplication : Application() {
         get() {
             if (mRequestQueue == null) {
                 mRequestQueue = Volley.newRequestQueue(applicationContext)
-                Log.i("init", "requestqueue")
             }
             return mRequestQueue!!
         }
@@ -31,15 +29,12 @@ class MyApplication : Application() {
         get() {
             if (mImageLoader == null) {
                 mImageLoader =  MyImageLoader(requestQueue)
-                Log.i("init", "imageloader")
-
             }
             return mImageLoader!!
         }
     val listGetter: IListGetter
         get(){
             if(mListGetter == null){
-                Log.i("init", "listGetter")
                 mListGetter = VolleyListGetter(requestQueue, Gson())
             }
             return mListGetter!!

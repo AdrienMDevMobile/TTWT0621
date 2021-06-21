@@ -1,6 +1,5 @@
 package com.example.ttwt0621
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.ttwt0621.apiCall.IListGetter
 import kotlinx.coroutines.CoroutineScope
@@ -26,13 +25,20 @@ class MainViewModel() : ViewModel(){
         viewModelScope.launch(Dispatchers.IO){
             val listImagePreview = listGetter.getListPreview(searchText)
 
-            for(a in listImagePreview.hits){
-                Log.i("Info", a.tags)
-            }
 
             //noteRecyclerAdapter.notifyDataSetChanged()
             listPreview.postValue(listImagePreview.hits)
         }
+    }
+
+    public fun getCheckedURLList() : ArrayList<String>{
+        val toSend = ArrayList<String>()
+        for(a in getListPreview().value!!){
+
+            if(a.isChecked)
+                toSend.add(a.largeImageURL)
+        }
+        return toSend
     }
 
 

@@ -2,7 +2,6 @@ package com.example.ttwt0621
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
@@ -57,16 +56,7 @@ class MainActivity : AppCompatActivity() {
         //Chercher comment bien faire le onclicklistener. Tout ce travail devrait etre fait par la VM. Pas l'activité.
         findViewById<Button>(R.id.btnGo).setOnClickListener { view ->
             val intent = Intent(this, ShowPicturesActivity::class.java)
-
-            val toSend = ArrayList<String>()
-            for(a in viewModel.getListPreview().value!!){
-
-                if(a.isChecked)
-                    toSend.add(a.largeImageURL)
-                Log.i("checked", a.isChecked.toString())
-            }
-
-            intent.putStringArrayListExtra(ShowPicturesActivity.LIST_IMAGE_EXTRA, toSend)
+            intent.putStringArrayListExtra(ShowPicturesActivity.LIST_IMAGE_EXTRA, viewModel.getCheckedURLList())
             this.startActivity(intent)
         }
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TTWT0621</string>
+    <string name="btn_search">Rechercher</string>
+    <string name="btn_show">Go</string>
 </resources>

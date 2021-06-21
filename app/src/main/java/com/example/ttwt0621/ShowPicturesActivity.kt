@@ -1,12 +1,9 @@
 package com.example.ttwt0621
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.toolbox.Volley
-import com.example.ttwt0621.image.MyImageLoader
 
 
 class ShowPicturesActivity : AppCompatActivity() {
@@ -33,9 +30,6 @@ class ShowPicturesActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = viewAdapter
 
-            for(a in listImages){
-                Log.i("imageaafficher", a)
-            }
         }
     }
 }
