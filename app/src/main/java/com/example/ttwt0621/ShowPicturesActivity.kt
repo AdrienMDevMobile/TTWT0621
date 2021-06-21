@@ -15,9 +15,6 @@ class ShowPicturesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_pictures)
 
-        //val requestQueue = Volley.newRequestQueue(this)
-        //val myImageLoader = MyImageLoader(requestQueue)
-
         val intent = getIntent()
         val listImages = intent.getStringArrayListExtra(LIST_IMAGE_EXTRA)
 

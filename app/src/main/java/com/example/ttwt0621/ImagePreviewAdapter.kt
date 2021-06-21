@@ -15,9 +15,7 @@ import kotlin.properties.Delegates
 
 class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
     : CBClicked, RecyclerView.Adapter<ImagePreviewAdapter.ViewHolder>()
-     { //private val myImageLoader: MyImageLoader
-    //private val context: Context,
-    private val layoutInflater: LayoutInflater? = null
+     {
 
     override fun  onCreateViewHolder(parent: ViewGroup, viewType : Int) : ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -35,9 +33,13 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
         holder.textImagePreview.setText(imagePreview.tags)
         holder.currentPosition = position
         MyApplication.instance.imageLoader.loadImage(holder.image, imagePreview.previewURL)
-        //myImageLoader.loadImage(holder.image, imagePreview.previewURL)
         holder.checkBox.isChecked = imagePreview.isChecked
     }
+
+    override fun CBClicked(position: Int, value: Boolean) {
+        list.get(position).isChecked = value
+    }
+
 
     class ViewHolder(itemView : View, adapter:CBClicked): RecyclerView.ViewHolder(itemView){
 
@@ -47,7 +49,7 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
         val checkBox : CheckBox
 
         init{
-            textImagePreview = itemView.findViewById(R.id.tvImagePreview);
+            textImagePreview = itemView.findViewById(R.id.tvImagePreview)
             image = itemView.findViewById(R.id.img_preview)
             checkBox = itemView.findViewById(R.id.cBImagePreview)
             checkBox.setOnCheckedChangeListener{view, checked ->
@@ -56,10 +58,6 @@ class ImagePreviewAdapter(private val list : ArrayList<ImagePreview>)
         }
 
     }
-
-     override fun CBClicked(position: Int, value: Boolean) {
-         list.get(position).isChecked = value
-     }
 }
 interface CBClicked{
     fun CBClicked(position : Int, value:Boolean)

@@ -18,7 +18,6 @@ class VolleyListGetter(private val queue: RequestQueue, private val gson: Gson) 
     override suspend fun getListPreview(textSearch:String): PreviewList {
 
         val URL :String = URLs.BASE_URL + URLs.SEARCH_FIELD + textSearch
-        //val typeImagePreviewList = object: TypeToken<ArrayList<ImagePreview>>() {}.type
         val typePreviewList = object:TypeToken<PreviewList>(){}.type
 
         return suspendCancellableCoroutine  { continuation ->
@@ -31,13 +30,11 @@ class VolleyListGetter(private val queue: RequestQueue, private val gson: Gson) 
                     }
                 }
 
-                // Error Listner
                 val error = Response.ErrorListener {
                     if (continuation.isActive) {
                         continuation.resume(PreviewList(0,0, ArrayList()))
                     }
                 }
-
 
                 val jsonObjectRequest =
                     JsonObjectRequest(Request.Method.GET, URL, null, success, error)

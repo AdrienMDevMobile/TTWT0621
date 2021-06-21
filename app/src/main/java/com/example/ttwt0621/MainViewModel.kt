@@ -16,22 +16,16 @@ class MainViewModel() : ViewModel(){
         return listPreview
     }
 
-    private var coroutineScope = this.viewModelScope
+    fun startSearch(searchText : String, listGetter : IListGetter){
 
-    public fun startSearch(searchText : String, listGetter : IListGetter){
-        //Pour aller plus vide. Global scope
-        //TODO a remplacer
-        //https://medium.com/l-r-engineering/launching-kotlin-coroutines-in-android-coroutine-scope-context-800d280ebd80
         viewModelScope.launch(Dispatchers.IO){
             val listImagePreview = listGetter.getListPreview(searchText)
 
-
-            //noteRecyclerAdapter.notifyDataSetChanged()
             listPreview.postValue(listImagePreview.hits)
         }
     }
 
-    public fun getCheckedURLList() : ArrayList<String>{
+    fun getCheckedURLList() : ArrayList<String>{
         val toSend = ArrayList<String>()
         for(a in getListPreview().value!!){
 

@@ -18,24 +18,16 @@ import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
-    //private val timerViewModel: MainViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
-    //private lateinit var viewAdapter: ImagePreviewAdapter
 
-    //private var coroutineScope = this.ActivityScope
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val viewModel: MainViewModel by viewModels()
 
-        //A faire si plus de temps : passer le listGetter dans le ViewModel pour réduire dépendance
-        //val requestQueue = Volley.newRequestQueue(this)
-        //val listGetter : IListGetter = VolleyListGetter(requestQueue, Gson())
-
         val searchText = findViewById<EditText>(R.id.et_search)
 
-       // val myImageLoader = MyImageLoader(requestQueue)
 
         recyclerView = findViewById<RecyclerView>(R.id.rv_preview_list).apply {
             this.setHasFixedSize(true)
@@ -43,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         val searchButton = findViewById<Button>(R.id.btnSearch)
         searchButton.setOnClickListener { view ->
-            //Utiliser scope autre que GlobalScope
             viewModel.startSearch(searchText.text.toString(), MyApplication.instance.listGetter)
         }
 

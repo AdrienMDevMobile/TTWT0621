@@ -42,7 +42,6 @@ class MyApplication : Application() {
 
 
     companion object {
-       // val TAG = AppController::class.java.simpleName
 
         @get:Synchronized
         lateinit var instance: MyApplication

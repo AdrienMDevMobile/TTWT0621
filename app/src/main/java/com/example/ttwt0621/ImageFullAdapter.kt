@@ -23,7 +23,6 @@ class ImageFullAdapter (private val list : ArrayList<String>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageFullURL = list.get(position)
         MyApplication.instance.imageLoader.loadImage(holder.image, imageFullURL)
-        //myImageLoader.loadImage(holder.image, imageFullURL)
     }
 
     override fun getItemCount(): Int {
